@@ -168,6 +168,11 @@ if(BUILD_SHARED_LIBS)
     set_target_properties(ixwebsocket PROPERTIES VERSION 11.3.2)
 
 else()
+    if(MSVC)
+        # Build statically linked libraries
+        set_property(TARGET ixwebsocket PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    endif()
+      
     # Static library
     add_library( ixwebsocket
         ${IXWEBSOCKET_SOURCES}
